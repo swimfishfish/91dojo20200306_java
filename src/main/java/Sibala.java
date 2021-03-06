@@ -18,32 +18,36 @@ public class Sibala {
         return result;
     }
 
-    private String compare(Player player1, Player player2) {
+    private Result compare(Player player1, Player player2) {
         int pt1 = player1.dices.get(0);
         int pt2 = player2.dices.get(0);
 
         Category category1 = player1.getCategory();
         Category category2 = player2.getCategory();
 
-
+        Result result = null;
         if (!category1.equals(category2)) {
+            result = new Result();
+            result.category = Category.ALL_THE_SAME_KIND;
             if (category1.ordinal() > category2.ordinal()) {
-                return player1.name + " wins. all the same kind:" + player1.dices.get(0);
+                result.name = player1.name;
+                result.point = player1.dices.get(0);
             } else {
-                return player2.name + " wins. all the same kind:" + player2.dices.get(0);
+                result.name = player2.name;
+                result.point = player2.dices.get(0);
             }
         } else {
             // same category
+
             if (category1 == Category.NO_POINT) {
-                return "Tie";
+                result.category = Category.NO_POINT;
             } else if (category1 == Category.ALL_THE_SAME_KIND) {
-                Player wonPlayer = compareAllSameKind(player1, player2);
+                result = compareAllSameKind(player1, player2);
             } else {//(category1 == Category.NORMAL_POINT){
-                Player wonPlayer = compareNormalPoint(player1, player2);
-                return wonPlayer.name + " wins. normal point:" + wonPlayer.wonPoint;
+                result = compareNormalPoint(player1, player2);
             }
         }
-        return null;
+        return result;
     }
 
     private Result compareAllSameKind(Player player1, Player player2) {
