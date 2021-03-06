@@ -9,7 +9,7 @@ public class Sibala {
         Player player1 = new Player(s[0]);
         Player player2 = new Player(s[1]);
 
-        String result = compare(player1, player2);
+        String result = compare(player1, player2).toString();
 
 //        if (won != null) {
 //            return won.name + " wins. all the same kind:" + won.dices.get(0);
@@ -25,9 +25,8 @@ public class Sibala {
         Category category1 = player1.getCategory();
         Category category2 = player2.getCategory();
 
-        Result result = null;
+        Result result = new Result();
         if (!category1.equals(category2)) {
-            result = new Result();
             result.category = Category.ALL_THE_SAME_KIND;
             if (category1.ordinal() > category2.ordinal()) {
                 result.name = player1.name;
@@ -38,7 +37,6 @@ public class Sibala {
             }
         } else {
             // same category
-
             if (category1 == Category.NO_POINT) {
                 result.category = Category.NO_POINT;
             } else if (category1 == Category.ALL_THE_SAME_KIND) {
@@ -59,12 +57,11 @@ public class Sibala {
         if (firstPointCount > secondPointCount) {
             result.point = firstPointCount;
             result.name = player1.name;
-            return result;
-        } else {
+        } else if (firstPointCount < secondPointCount) {
             result.point = secondPointCount;
             result.name = player2.name;
-            return result;
         }
+        return result;
     }
 
     private Result compareNormalPoint(Player player1, Player player2) {
@@ -89,10 +86,11 @@ public class Sibala {
             result.name = player1.name;
             result.point = firstPointCount;
             return result;
-        } else {
+        } else if (firstPointCount < secondPointCount) {
             result.name = player2.name;
             result.point = secondPointCount;
             return result;
         }
+        return result;
     }
 }
