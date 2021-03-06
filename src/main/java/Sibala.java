@@ -39,14 +39,34 @@ public class Sibala {
             // same category
             if (category1 == Category.NO_POINT) {
                 return "Tie";
-            }else if(category1 == Category.NORMAL_POINT){
-
+            }else {//(category1 == Category.NORMAL_POINT){
+                Player wonPlayer = compareNormalPoint(player1,player2);
+                return wonPlayer.name+ " wins. normal points:" + wonPlayer;
             }
         }
     }
 
     private Player compareNormalPoint(Player player1, Player player2){
 //        Map<Integer, Integer> firstPoint = player1.dices.stream().collect(CollectionsFunction.identity(), Collections.)
-        Map<Integer, List<Integer>> collect = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
+        Map<Integer, List<Integer>> collect1 = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
+        Map<Integer, List<Integer>> collect2 = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
+int firstPointCount = 0;
+        int secondPointCount = 0;
+        for (Map.Entry<Integer, List<Integer>> entry : collect1.entrySet()) {
+            if(entry.getValue().size()==1){
+                firstPointCount+=entry.getKey();
+            }
+        }
+        for (Map.Entry<Integer, List<Integer>> entry : collect2.entrySet()) {
+            if(entry.getValue().size()==1){
+                secondPointCount+=entry.getKey();
+            }
+        }
+//        Player wonPlayer = firstPointCount>secondPointCount? player1:player2;
+
+//        return
+        if (firstPointCount>secondPointCount) {
+
+        }
     }
 }

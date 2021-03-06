@@ -8,6 +8,12 @@ public class Player {
 
     String name;
     List<Integer> dices;
+
+    public void setWonPoint(Integer wonPoint) {
+        this.wonPoint = wonPoint;
+    }
+
+    Integer wonPoint;
     // A:1 2 3 4
     public Player(String s){
         this.name = s.split(":")[0];
