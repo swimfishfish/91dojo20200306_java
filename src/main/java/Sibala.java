@@ -1,7 +1,5 @@
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Sibala {
@@ -28,45 +26,47 @@ public class Sibala {
         Category category2 = player2.getCategory();
 
 
-        if(!category1.equals(category2)){
-            if (category1.ordinal()>category2.ordinal()) {
-
+        if (!category1.equals(category2)) {
+            if (category1.ordinal() > category2.ordinal()) {
                 return player1.name + " wins. all the same kind:" + player1.dices.get(0);
-            }else{
+            } else {
                 return player2.name + " wins. all the same kind:" + player2.dices.get(0);
             }
-        }else{
+        } else {
             // same category
             if (category1 == Category.NO_POINT) {
                 return "Tie";
-            }else {//(category1 == Category.NORMAL_POINT){
-                Player wonPlayer = compareNormalPoint(player1,player2);
-                return wonPlayer.name+ " wins. normal points:" + wonPlayer;
+            } else if (category1 == Category.ALL_THE_SAME_KIND) {
+                Player wonPlayer = compareAllSameKind(player1, player2);
+            } else {//(category1 == Category.NORMAL_POINT){
+                Player wonPlayer = compareNormalPoint(player1, player2);
+                return wonPlayer.name + " wins. normal point:" + wonPlayer.wonPoint;
             }
         }
     }
 
-    private Player compareNormalPoint(Player player1, Player player2){
-//        Map<Integer, Integer> firstPoint = player1.dices.stream().collect(CollectionsFunction.identity(), Collections.)
+    private Player compareNormalPoint(Player player1, Player player2) {
         Map<Integer, List<Integer>> collect1 = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
-        Map<Integer, List<Integer>> collect2 = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
-int firstPointCount = 0;
+        Map<Integer, List<Integer>> collect2 = player2.dices.stream().collect(Collectors.groupingBy(v -> v));
+        int firstPointCount = 0;
         int secondPointCount = 0;
         for (Map.Entry<Integer, List<Integer>> entry : collect1.entrySet()) {
-            if(entry.getValue().size()==1){
-                firstPointCount+=entry.getKey();
+            if (entry.getValue().size() == 1) {
+                firstPointCount += entry.getKey();
             }
         }
         for (Map.Entry<Integer, List<Integer>> entry : collect2.entrySet()) {
-            if(entry.getValue().size()==1){
-                secondPointCount+=entry.getKey();
+            if (entry.getValue().size() == 1) {
+                secondPointCount += entry.getKey();
             }
         }
-//        Player wonPlayer = firstPointCount>secondPointCount? player1:player2;
 
-//        return
-        if (firstPointCount>secondPointCount) {
-
+        if (firstPointCount > secondPointCount) {
+            player1.setWonPoint(firstPointCount);
+            return player1;
+        } else {
+            player2.setWonPoint(secondPointCount);
+            return player2;
         }
     }
 }
