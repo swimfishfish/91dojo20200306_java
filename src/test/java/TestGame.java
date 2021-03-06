@@ -18,4 +18,20 @@ public class TestGame {
         String result = sibala.getResult(input);
         Assert.assertEquals("Tie", result);
     }
+
+    @Test
+    public void test_All_The_Same_Kind_Point_Tie(){
+        Sibala sibala = new Sibala();
+        String input = "A:2 2 2 2  B:2 2 2 2";
+        String result = sibala.getResult(input);
+        Assert.assertEquals("Tie", result);
+    }
+
+    @Test
+    public void test_All_The_Same_Kind_first_win() {
+        Sibala sibala = new Sibala();
+        String input = "A:3 3 3 3  B:2 2 2 2";
+        String result = sibala.getResult(input);
+        Assert.assertEquals("A wins. all the same kind:3", result);
+    }
 }
