@@ -25,8 +25,8 @@ public class Sibala {
         int pt1 = player1.dices.get(0);
         int pt2 = player2.dices.get(0);
 
-        Category category1 = getCategory(player1.dices);
-        Category category2 = getCategory(player2.dices);
+        Category category1 = player1.getCategory();
+        Category category2 = player2.getCategory();
         if(!category1.equals(category2)){
             if (category1.ordinal()>category2.ordinal()) {
                 return player1;
@@ -34,7 +34,7 @@ public class Sibala {
                 return player2;
             }
         }else{
-
+//            return null;
         }
 
         if(pt1 == pt2) return null;
@@ -46,17 +46,5 @@ public class Sibala {
         else {
             return player1;
         }
-    }
-
-    private Category getCategory(List<Integer> dices) {
-        Set<Integer> diffDices = new HashSet<>(dices);
-        if(diffDices.size() == 1){
-            return Category.ALL_THE_SAME_KIND;
-        }else if(diffDices.size() == 4){
-            return Category.NO_POINT;
-        }else{
-            return Category.NORMAL_POINT;
-        }
-
     }
 }
