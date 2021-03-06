@@ -13,20 +13,19 @@ public class Sibala {
 
         if (won != null) {
             return won.name + " wins. all the same kind:" + won.dices.get(0);
-        }else{
-
         }
+
         return "Tie";
     }
 
     private Player compare(Player player1, Player player2) {
-
-
         int pt1 = player1.dices.get(0);
         int pt2 = player2.dices.get(0);
 
         Category category1 = player1.getCategory();
         Category category2 = player2.getCategory();
+
+
         if(!category1.equals(category2)){
             if (category1.ordinal()>category2.ordinal()) {
                 return player1;
@@ -34,7 +33,10 @@ public class Sibala {
                 return player2;
             }
         }else{
-//            return null;
+            // same category
+            if (category1 == Category.NO_POINT) {
+                return null;
+            }
         }
 
         if(pt1 == pt2) return null;
