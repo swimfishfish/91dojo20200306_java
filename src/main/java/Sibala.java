@@ -28,6 +28,12 @@ public class Sibala {
         Category category1 = getCategory(player1.dices);
         Category category2 = getCategory(player2.dices);
         if(!category1.equals(category2)){
+            if (category1.ordinal()>category2.ordinal()) {
+                return player1;
+            }else{
+                return player2;
+            }
+        }else{
 
         }
 
