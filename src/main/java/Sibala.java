@@ -1,3 +1,9 @@
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class Sibala {
 
     public String getResult(String input) {
@@ -32,18 +38,15 @@ public class Sibala {
         }else{
             // same category
             if (category1 == Category.NO_POINT) {
-                return null;
+                return "Tie";
+            }else if(category1 == Category.NORMAL_POINT){
+
             }
         }
+    }
 
-        if(pt1 == pt2) return null;
-
-        if (pt1 < pt2) {
-            return player2;
-
-        }
-        else {
-            return player1;
-        }
+    private Player compareNormalPoint(Player player1, Player player2){
+//        Map<Integer, Integer> firstPoint = player1.dices.stream().collect(CollectionsFunction.identity(), Collections.)
+        Map<Integer, List<Integer>> collect = player1.dices.stream().collect(Collectors.groupingBy(v -> v));
     }
 }
