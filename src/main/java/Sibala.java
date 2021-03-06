@@ -1,3 +1,7 @@
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Sibala {
 
     public String getResult(String input) {
@@ -9,6 +13,8 @@ public class Sibala {
 
         if (won != null) {
             return won.name + " wins. all the same kind:" + won.dices.get(0);
+        }else{
+
         }
         return "Tie";
     }
@@ -19,7 +25,13 @@ public class Sibala {
         int pt1 = player1.dices.get(0);
         int pt2 = player2.dices.get(0);
 
-        Category cate = getCategory(player1.dices);
+        Category category1 = getCategory(player1.dices);
+        Category category2 = getCategory(player2.dices);
+        if(!category1.equals(category2)){
+
+        }
+
+        if(pt1 == pt2) return null;
 
         if (pt1 < pt2) {
             return player2;
@@ -28,5 +40,17 @@ public class Sibala {
         else {
             return player1;
         }
+    }
+
+    private Category getCategory(List<Integer> dices) {
+        Set<Integer> diffDices = new HashSet<>(dices);
+        if(diffDices.size() == 1){
+            return Category.ALL_THE_SAME_KIND;
+        }else if(diffDices.size() == 4){
+            return Category.NO_POINT;
+        }else{
+            return Category.NORMAL_POINT;
+        }
+
     }
 }
